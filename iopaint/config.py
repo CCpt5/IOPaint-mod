@@ -14,6 +14,7 @@ from iopaint.const import (
 )
 
 DEFAULT_CONFIG_PATH = Path("config.yaml")
+LEGACY_CURATED_MODELS = ["lama", "u2net", "birefnet-general-lite", "mobile_sam", "sam2_tiny"]
 
 # Built-in default models
 DEFAULT_MODELS = [
@@ -102,6 +103,11 @@ class ConfigManager:
             # Convert OmegaConf to dict and then to Pydantic
             config_dict = OmegaConf.to_container(conf, resolve=True)
             self._config = GlobalConfig(**config_dict)
+            if self._config.curated_models == LEGACY_CURATED_MODELS:
+                self._config.curated_models = [*LEGACY_CURATED_MODELS, *DEFAULT_DIFFUSION_MODELS]
+                logger.info(
+                    "Migrated curated model list to include default diffusion models."
+                )
         else:
             logger.info("Config file not found, using defaults")
             self._config = GlobalConfig()
