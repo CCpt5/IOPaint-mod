@@ -42,9 +42,15 @@ def cli_download_model(model: str):
         logger.info(f"Downloading model from Huggingface: {model}")
         from diffusers import DiffusionPipeline
 
-        downloaded_path = handle_from_pretrained_exceptions(
-            DiffusionPipeline.download, pretrained_model_name=model, variant="fp16"
-        )
+        try:
+            downloaded_path = handle_from_pretrained_exceptions(
+                DiffusionPipeline.download, pretrained_model_name=model, variant="fp16"
+            )
+        except Exception:
+            # Some newer model families (e.g. FLUX/Klein) don't ship fp16 variant tags.
+            downloaded_path = handle_from_pretrained_exceptions(
+                DiffusionPipeline.download, pretrained_model_name=model
+            )
         logger.info(f"Done. Downloaded to {downloaded_path}")
 
 
@@ -285,6 +291,7 @@ def scan_diffusers_models() -> List[ModelInfo]:
             "PaintByExamplePipeline",
             "KandinskyV22InpaintPipeline",
             "AnyText",
+            "Flux2KleinPipeline",
         ]:
             model_type = ModelType.DIFFUSERS_OTHER
         else:

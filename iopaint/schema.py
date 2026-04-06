@@ -1,7 +1,7 @@
 import random
 from enum import Enum
 from pathlib import Path
-from typing import Optional, Literal, List
+from typing import Dict, Optional, Literal, List
 
 from loguru import logger
 
@@ -10,6 +10,8 @@ from iopaint.const import (
     KANDINSKY22_NAME,
     POWERPAINT_NAME,
     ANYTEXT_NAME,
+    FLUX2_KLEIN_9B_NAME,
+    DEFAULT_DIFFUSION_MODELS,
     SDXL_CONTROLNET_CHOICES,
     SD2_CONTROLNET_CHOICES,
     SD_CONTROLNET_CHOICES,
@@ -55,6 +57,7 @@ class ModelInfo(BaseModel):
             KANDINSKY22_NAME,
             POWERPAINT_NAME,
             ANYTEXT_NAME,
+            FLUX2_KLEIN_9B_NAME,
         ]
 
     @computed_field
@@ -115,7 +118,7 @@ class ModelInfo(BaseModel):
             ModelType.DIFFUSERS_SDXL,
             ModelType.DIFFUSERS_SD_INPAINT,
             ModelType.DIFFUSERS_SDXL_INPAINT,
-        ] or self.name in [POWERPAINT_NAME, ANYTEXT_NAME]
+        ] or self.name in [POWERPAINT_NAME, ANYTEXT_NAME, FLUX2_KLEIN_9B_NAME]
 
     @computed_field
     @property
@@ -130,7 +133,7 @@ class ModelInfo(BaseModel):
             ModelType.DIFFUSERS_SDXL,
             ModelType.DIFFUSERS_SD_INPAINT,
             ModelType.DIFFUSERS_SDXL_INPAINT,
-        ] or self.name in [KANDINSKY22_NAME, POWERPAINT_NAME]
+        ] or self.name in [KANDINSKY22_NAME, POWERPAINT_NAME, FLUX2_KLEIN_9B_NAME]
 
     @computed_field
     @property
@@ -294,7 +297,14 @@ class GlobalConfig(BaseModel):
     diffusion_models: List[str] = []
     controlnet_models: Dict[str, List[str]] = {}
     brushnet_models: Dict[str, List[str]] = {}
-    curated_models: List[str] = ["lama", "u2net", "birefnet-general-lite", "mobile_sam", "sam2_tiny"]
+    curated_models: List[str] = [
+        "lama",
+        "u2net",
+        "birefnet-general-lite",
+        "mobile_sam",
+        "sam2_tiny",
+        *DEFAULT_DIFFUSION_MODELS,
+    ]
     lcm_lora_models: Dict[str, str] = {
         "sd1.5": "latent-consistency/lcm-lora-sdv1-5",
         "sdxl": "latent-consistency/lcm-lora-sdxl"

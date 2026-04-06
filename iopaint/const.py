@@ -5,6 +5,7 @@ INSTRUCT_PIX2PIX_NAME = "timbrooks/instruct-pix2pix"
 KANDINSKY22_NAME = "kandinsky-community/kandinsky-2-2-decoder-inpaint"
 POWERPAINT_NAME = "Sanster/PowerPaint-V1-stable-diffusion-inpainting"
 ANYTEXT_NAME = "Sanster/AnyText"
+FLUX2_KLEIN_9B_NAME = "black-forest-labs/FLUX.2-klein-9B"
 
 DIFFUSERS_SD_CLASS_NAME = "StableDiffusionPipeline"
 DIFFUSERS_SD_INPAINT_CLASS_NAME = "StableDiffusionInpaintPipeline"
@@ -42,6 +43,7 @@ DEFAULT_DIFFUSION_MODELS = [
     "RunDiffusion/Juggernaut-XI-v11",
     "SG161222/RealVisXL_V5.0",
     "eienmojiki/Anything-XL",
+    FLUX2_KLEIN_9B_NAME,
     POWERPAINT_NAME,
     ANYTEXT_NAME,
 ]

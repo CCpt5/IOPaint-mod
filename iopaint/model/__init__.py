@@ -18,6 +18,7 @@ def _load_models() -> Dict[str, Type["InpaintModel"]]:
 
     from .anytext.anytext_model import AnyText
     from .fcf import FcF
+    from .flux2_klein import Flux2Klein
     from .instruct_pix2pix import InstructPix2Pix
     from .kandinsky import Kandinsky22
     from .lama import LaMa, AnimeLaMa
@@ -39,6 +40,7 @@ def _load_models() -> Dict[str, Type["InpaintModel"]]:
         ZITS.name: ZITS,
         MAT.name: MAT,
         FcF.name: FcF,
+        Flux2Klein.name: Flux2Klein,
         OpenCV2.name: OpenCV2,
         Manga.name: Manga,
         MIGAN.name: MIGAN,
