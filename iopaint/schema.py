@@ -10,6 +10,7 @@ from iopaint.const import (
     KANDINSKY22_NAME,
     POWERPAINT_NAME,
     ANYTEXT_NAME,
+    DEFAULT_DIFFUSION_MODELS,
     SDXL_CONTROLNET_CHOICES,
     SD2_CONTROLNET_CHOICES,
     SD_CONTROLNET_CHOICES,
@@ -294,7 +295,14 @@ class GlobalConfig(BaseModel):
     diffusion_models: List[str] = []
     controlnet_models: Dict[str, List[str]] = {}
     brushnet_models: Dict[str, List[str]] = {}
-    curated_models: List[str] = ["lama", "u2net", "birefnet-general-lite", "mobile_sam", "sam2_tiny"]
+    curated_models: List[str] = [
+        "lama",
+        "u2net",
+        "birefnet-general-lite",
+        "mobile_sam",
+        "sam2_tiny",
+        *DEFAULT_DIFFUSION_MODELS,
+    ]
     lcm_lora_models: Dict[str, str] = {
         "sd1.5": "latent-consistency/lcm-lora-sdv1-5",
         "sdxl": "latent-consistency/lcm-lora-sdxl"
